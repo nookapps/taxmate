@@ -24,7 +24,9 @@
   }
 }
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+/* Taps fire at once: nothing on these pages uses double-tap to zoom. */
+a, button, summary { touch-action: manipulation; }
 body {
   margin: 0;
   background: var(--bg);
@@ -36,7 +38,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 a { color: var(--link); text-decoration: none; }
-a:hover { text-decoration: underline; }
+
 a:focus-visible, summary:focus-visible, button:focus-visible {
   outline: 3px solid var(--link);
   outline-offset: 3px;
@@ -80,7 +82,7 @@ html.fr .l-en { display: none; }
   padding: 14px 0;
   cursor: pointer;
 }
-.nav a.nav-link:hover, .nav button:hover { opacity: 1; text-decoration: none; }
+
 .nav a[aria-current="page"] { opacity: 1; font-weight: 600; }
 
 /* Page */
@@ -145,7 +147,7 @@ li::marker { color: var(--text-soft); }
   font-weight: 400;
   margin: 8px 0 12px;
 }
-.button:hover { text-decoration: none; filter: brightness(1.08); }
+
 .small { font-size: 14px; color: var(--text-soft); letter-spacing: 0; }
 
 /* Questions */
@@ -204,3 +206,13 @@ footer {
   .nav button { margin-left: auto; }
   main { padding-top: 40px; }
 }
+
+/* Hover only where there is a real pointer; on a phone a tap would leave it stuck on. */
+@media (hover: hover) and (pointer: fine) {
+  a:hover { text-decoration: underline; }
+  .nav a.nav-link:hover, .nav button:hover { opacity: 1; text-decoration: none; }
+  .button:hover { text-decoration: none; filter: brightness(1.08); }
+}
+/* With the tap flash gone, pressing still shows. */
+.button:active { filter: brightness(0.92); }
+summary:active { opacity: 0.6; }
