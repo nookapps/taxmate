@@ -216,3 +216,7 @@ footer {
 /* With the tap flash gone, pressing still shows. */
 .button:active { filter: brightness(0.92); }
 summary:active { opacity: 0.6; }
+
+/* Opened inside an app: the app draws its own navigation. */
+.embed .nav { display: none; }
+.embed main { padding-top: 8px; }

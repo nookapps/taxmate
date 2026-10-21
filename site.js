@@ -20,9 +20,14 @@
       var url = new URL(link.getAttribute("href"), location.href);
       url.searchParams.set("lang", lang);
       if (app) { url.searchParams.set("app", app); }
+      if (embed) { url.searchParams.set("embed", "1"); }
       link.href = url.pathname.split("/").pop() + url.search + url.hash;
     });
   }
+
+  // ?embed=1: opened inside an app, which shows its own title bar.
+  var embed = params.get("embed") === "1";
+  if (embed) { root.classList.add("embed"); }
 
   var app = (params.get("app") || "").replace(/[^\w .&+'-]/g, "").slice(0, 40).trim();
   if (app) {
